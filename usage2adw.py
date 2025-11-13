@@ -72,7 +72,7 @@ import requests
 import time
 import base64
 
-version = "25.10.01"
+version = "25.11.12"
 work_report_dir = os.curdir + "/work_report_dir"
 
 # Init the Oracle Thick Client Library in order to use sqlnet.ora and instant client
@@ -652,7 +652,7 @@ def update_public_rates(connection, tenant_name):
                         time.sleep(2)
                         continue
 
-                    if not resp:
+                    if not resp or not resp.json() or 'items' not in resp.json() or not resp.json()['items']:
                         continue
 
                     for item in resp.json()['items']:
